@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pastebin-Lite
+  A minimal Pastebin-like application built with Next.js (App Router) and MongoDB, where users can create text pastes and  share a link to view them.
+  The app supports optional expiration (TTL) and view-count limits, and is designed to pass automated tests when deployed on Vercel.
 
-## Getting Started
+## Instruction to run the project locally
 
-First, run the development server:
+  1. First, run the development server:
+
+```bash
+git clone https://github.com/roshidhmohammed/pastebin-lite.git
+# 2
+cd pastebin-lite
+```
+
+   2. Install dependencies:
+
+```bash
+npm install
+```
+   3. Setup Environment variables:
+    Create a file named .env.local in the project root:
+
+```bash
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/pastebin  
+#mongodb atlas
+```
+
+   4. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Persistence Layer
+MongoDB Atlas is used as the persistence layer.
 
-## Learn More
+Why MongoDB?
 
-To learn more about Next.js, take a look at the following resources:
+- Persistent across serverless requests
+- No manual migrations required
+- Works well with Vercel
+- Simple schema for paste data
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+How to create db and cluster on MongoDB Atlas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Go to  [https://www.mongodb.com/atlas](https://www.mongodb.com/atlas)
+2. Click Sign Up
+3. Create an account using email, Google, or GitHub
+4. Log in to the MongoDB Atlas dashboard
+5. In the Atlas dashboard, click Projects
+6. In the Atlas dashboard, click Projects
+7. Enter a project name (e.g. pastebin-lite)
+8. Click Create Project
 
-## Deploy on Vercel
+Then Create a cluster:
+1. Inside your project, click Build a Database
+2. Choose M0 (Free Tier)
+3. Select:
+    - Cloud Provider: AWS (recommended)
+    - Region: choose the closest region
+4. Click Create
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+After that, create a Databse User:
+1. Go to Database Access
+2. Click Add New Database User
+3. Choose Password authentication
+4. Enter:
+    - Username (e.g. pastebin_user)
+    - Password (save this securely)
+5. Click Add User
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Configure Network Access:
+1. Configure Network Access
+2. Click Add IP Address
+3. Choose:
+    - Allow Access from Anywhere -  This adds 0.0.0.0/0
+4. Click Confirm
+
+Get the MongoDB Connection String:
+1. Go to Database → Connect
+2. Choose Connect your application
+3. Select:
+    - Driver: Any (Recommended compass)
+    - Version: latest
+4. copy the connection string:
+
+```bash
+mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+```
+
+5. Replace:
+
+```bash
+<username> → your database username
+<password> → your database password
+```
+
+Add Database Name:
+Append a database name to the URL (for example pastebin):
+```bash
+mongodb+srv://pastebin_user:password@cluster0.xxxxx.mongodb.net/pastebin
+```
+
+Configure Environment Variables:
+Add the connecion string to the .env.local file of the project
+
+```bash
+MONGODB_URI=mongodb+srv://pastebin_user:password@cluster0.xxxxx.mongodb.net/pastebin
+```
+
+Verify the Connection:
+Start the app locally using the below command:
+```bash
+npm run dev
+```
+
+
