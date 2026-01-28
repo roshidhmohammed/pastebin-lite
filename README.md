@@ -18,13 +18,15 @@ cd pastebin-lite
 npm install
 ```
    3. Setup Environment variables:
-    Create a file named .env.local in the project root:
+    Create a file named `.env.local` in the project root and add your MongoDB connection string:
 
 ```bash
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
 MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/pastebin  
 #mongodb atlas
 ```
+
+**Note:** Replace `username` and `password` with your MongoDB Atlas credentials. Never commit `.env.local` to version control.
 
    4. Start the development server:
 
