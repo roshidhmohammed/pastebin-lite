@@ -1,7 +1,3 @@
-export const dynamic = "force-dynamic";
-
-import { connectDB } from "@/lib/db";
-import Paste from "@/lib/models/Paste";
 import { notFound } from "next/navigation";
 
 export default async function PastePage({
@@ -11,13 +7,23 @@ export default async function PastePage({
 }) {
   const { id } = await params;
 
-  await connectDB();
-  const paste = await Paste.findById(id);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ;
+  const response = await fetch(`${baseUrl}/api/pastes/${id}`, {
+    cache: "no-store",
+  });
 
-  if (!paste) notFound();
+  if (!response.ok) {
+    notFound();
+  }
+
+  const paste = await response.json();
+
+  if (!paste.content) {
+    notFound();
+  }
 
   return (
-    <main style={{ padding: 20 }}>
+    <main className="p-20 flex flex-col items-center">
       <pre>{paste.content}</pre>
     </main>
   );
