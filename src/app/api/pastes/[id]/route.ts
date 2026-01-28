@@ -1,9 +1,10 @@
 import { connectDB } from "@/lib/db";
 import Paste from "@/lib/models/Paste";
 import { getNowMs } from "@/lib/time";
+import { NextRequest } from "next/server";
 
 export async function GET(
-  req: Request,
+  req: NextRequest,
  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
