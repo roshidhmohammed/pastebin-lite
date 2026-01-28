@@ -2,7 +2,7 @@
   A minimal Pastebin-like application built with Next.js (App Router) and MongoDB, where users can create text pastes and  share a link to view them.
   The app supports optional expiration (TTL) and view-count limits, and is designed to pass automated tests when deployed on Vercel.
 
-## Instruction to run the project locally
+# Instruction to run the project locally
 
   1. First, run the development server:
 
@@ -35,17 +35,17 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
-## Persistence Layer
+# Persistence Layer
 MongoDB Atlas is used as the persistence layer.
 
-# Why MongoDB?
+## Why MongoDB?
 
 - Persistent across serverless requests
 - No manual migrations required
 - Works well with Vercel
 - Simple schema for paste data
 
-# How to create db and cluster on MongoDB Atlas
+## How to create db and cluster on MongoDB Atlas
 
 1. Go to  [https://www.mongodb.com/atlas](https://www.mongodb.com/atlas)
 2. Click Sign Up
@@ -56,7 +56,7 @@ MongoDB Atlas is used as the persistence layer.
 7. Enter a project name (e.g. pastebin-lite)
 8. Click Create Project
 
-# Then Create a cluster:
+## Then Create a cluster:
 1. Inside your project, click Build a Database
 2. Choose M0 (Free Tier)
 3. Select:
@@ -64,7 +64,7 @@ MongoDB Atlas is used as the persistence layer.
     - Region: choose the closest region
 4. Click Create
 
-# After that, create a Databse User:
+## After that, create a Databse User:
 1. Go to Database Access
 2. Click Add New Database User
 3. Choose Password authentication
@@ -73,14 +73,14 @@ MongoDB Atlas is used as the persistence layer.
     - Password (save this securely)
 5. Click Add User
 
-# Configure Network Access:
+## Configure Network Access:
 1. Configure Network Access
 2. Click Add IP Address
 3. Choose:
     - Allow Access from Anywhere -  This adds 0.0.0.0/0
 4. Click Confirm
 
-# Get the MongoDB Connection String:
+## Get the MongoDB Connection String:
 1. Go to Database → Connect
 2. Choose Connect your application
 3. Select:
@@ -99,20 +99,20 @@ mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true
 <password> → your database password
 ```
 
-# Add Database Name:
+## Add Database Name:
 Append a database name to the URL (for example pastebin):
 ```bash
 mongodb+srv://pastebin_user:password@cluster0.xxxxx.mongodb.net/pastebin
 ```
 
-# Configure Environment Variables:
+## Configure Environment Variables:
 Add the connecion string to the .env.local file of the project
 
 ```bash
 MONGODB_URI=mongodb+srv://pastebin_user:password@cluster0.xxxxx.mongodb.net/pastebin
 ```
 
-# Verify the Connection:
+## Verify the Connection:
 Start the app locally using the below command:
 ```bash
 npm run dev
